@@ -1,14 +1,11 @@
 package com.bvv.quiz;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -17,13 +14,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Random;
 
-public class Level1 extends AppCompatActivity {
+public class Level4 extends AppCompatActivity {
 
     int numLeft;
     int numRight;
@@ -32,7 +30,6 @@ public class Level1 extends AppCompatActivity {
     Dialog dialog;
     Dialog dialogEnd;
     public int count = 0;
-//    TextView tvTimer;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -41,9 +38,11 @@ public class Level1 extends AppCompatActivity {
         setContentView(R.layout.universal);
 
         TextView textLevel = findViewById(R.id.text_levels);
-        textLevel.setText(R.string.level1);
+        textLevel.setText(R.string.level4);
 
-//        tvTimer = (TextView) findViewById(R.id.tv_timer);
+        // Замена основного фона уровня
+        ImageView background = (ImageView) findViewById(R.id.background);
+        background.setImageResource(R.drawable.level4);
 
         final ImageView imgLeft = (ImageView) findViewById(R.id.img_left);
         imgLeft.setClipToOutline(true);// Скругление картинки
@@ -59,12 +58,24 @@ public class Level1 extends AppCompatActivity {
         Window w = getWindow();
         w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
-        //вызов диалогового окна в начале уровня.
-        dialog = new Dialog(this);// создание нового диалогового окна
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // скрываем заголовок
-        dialog.setContentView(R.layout.previewdialog); // путь к макету диалогового окна
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));// прозрачный фон диалогового окна
-        dialog.setCancelable(false); // нельзя закрыть кнопкой назад
+        // Диалог начало
+        dialog = new Dialog(this); // create new dialog
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // title invisible
+        dialog.setContentView(R.layout.previewdialog); // path to dialog
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // устанавливаем прозрачность заднего фона
+        dialog.setCancelable(false); // запрещаем выход при нажатии кнопки назад
+
+        // устанавливаем картинку диалогового окна
+        ImageView previewimgThree = dialog.findViewById(R.id.previewimg);
+        previewimgThree.setImageResource(R.drawable.previewimgfour);
+
+        // Устанавливаем фон диалогового окна
+        LinearLayout dialogBackground = (LinearLayout) dialog.findViewById(R.id.dialogfon);
+        dialogBackground.setBackgroundResource(R.drawable.previewbackground4);
+
+        // устанавливаем текст диалога
+        TextView textDescription = dialog.findViewById(R.id.textdescription);
+        textDescription.setText(R.string.levelfour);
 
         //Кнопка закрывающая диалоговое окно
         TextView btnClose = dialog.findViewById(R.id.btn_close);
@@ -72,7 +83,7 @@ public class Level1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    Intent intent = new Intent(Level1.this, GameLevels.class);
+                    Intent intent = new Intent(Level4.this, GameLevels.class);
                     startActivity(intent);
                     finish(); // При переходе назад, нужно зактыть Активность
                 }catch(Exception e){}
@@ -85,12 +96,11 @@ public class Level1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss(); //Закрываем диалоговое окно
-                // старт отсчета 30 сек.
             }
         });
 
         dialog.show();
-        //---------------------------------------------------
+
 
         //вызов диалогового окна в конце уровня.
         dialogEnd = new Dialog(this);
@@ -100,13 +110,21 @@ public class Level1 extends AppCompatActivity {
         dialogEnd.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT); // задает растягивание для диалогового окна
         dialogEnd.setCancelable(false);
 
+        // изменение текста в диалоговом окне в конце уровня
+        TextView textDescriptionEnd = (TextView) dialogEnd.findViewById(R.id.textdescriptionend);
+        textDescriptionEnd.setText(R.string.levelthreeEnd);
+
+        // замена фона диалогового окна
+        final LinearLayout dialogEndBackground = (LinearLayout) dialogEnd.findViewById(R.id.dialogfon);
+        dialogEndBackground.setBackgroundResource(R.drawable.previewbackground3);
+
         //Кнопка закрывающая диалоговое окно
         TextView btnClose2 = dialogEnd.findViewById(R.id.btn_close);
         btnClose2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try{
-                    Intent intent = new Intent(Level1.this, GameLevels.class);
+                    Intent intent = new Intent(Level4.this, GameLevels.class);
                     startActivity(intent);
                     finish(); // При переходе назад, нужно зактыть Активность
                 }catch(Exception e){}
@@ -119,7 +137,7 @@ public class Level1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    Intent intent = new Intent(Level1.this, Level2.class);
+                    Intent intent = new Intent(Level4.this, Level4.class);
                     startActivity(intent);
                     finish();
                 } catch(Exception e){}
@@ -129,29 +147,27 @@ public class Level1 extends AppCompatActivity {
 
         //---------------------------------------------------
 
-        // массив адресов прогресса
+
         final int[] progress = {
                 R.id.point1, R.id.point2, R.id.point3, R.id.point4,
-                R.id.point5, R.id.point6, R.id.point7, R.id.point8,
-                R.id.point9, R.id.point10, R.id.point11,
+                R.id.point5, R.id.point6, R.id.point7,
+                R.id.point8, R.id.point9, R.id.point10, R.id.point11,
                 R.id.point12, R.id.point13, R.id.point14, R.id.point15,
                 R.id.point16, R.id.point17, R.id.point18, R.id.point19,
                 R.id.point20
         };
 
-        final Animation a = AnimationUtils.loadAnimation(Level1.this, R.anim.alpha);
+        final Animation a = AnimationUtils.loadAnimation(Level4.this, R.anim.alpha);
 
-        numLeft = random.nextInt(10); // Random for numLeft
-        imgLeft.setImageResource(array.images1[numLeft]);
-        textLeft.setText(array.texts1[numLeft]);
+        numLeft = random.nextInt(21); // Random for numLeft
+        imgLeft.setImageResource(array.images3[numLeft]);
+        textLeft.setText(array.texts3[numLeft]);
 
-        numRight = random.nextInt(10);
+        do{numRight = random.nextInt(21);
+        } while(numLeft == numRight);
 
-        if(numLeft == numRight){
-            numRight = random.nextInt(10);
-        }
-        imgRight.setImageResource(array.images1[numRight]);
-        textRight.setText(array.texts1[numRight]);
+        imgRight.setImageResource(array.images3[numRight]);
+        textRight.setText(array.texts3[numRight]);
 
         // обрабатывание нажатия на левую картинку.
         imgLeft.setOnTouchListener(new View.OnTouchListener() {
@@ -159,7 +175,7 @@ public class Level1 extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 //Условие касания
                 if(event.getAction()==MotionEvent.ACTION_DOWN){
-                    // Касание пальцем
+                    // Касание
                     imgRight.setEnabled(false);// Блокируем правую картинку
                     if(numLeft>numRight){
                         imgLeft.setImageResource(R.drawable.img_true);
@@ -172,7 +188,7 @@ public class Level1 extends AppCompatActivity {
                         if(count < 20){
                             ++count;
                         }
-                        for(int i = 0; i < 19; i++){
+                        for(int i = 0; i < 20; i++){
                             TextView tv = findViewById(progress[i]);
                             tv.setBackgroundResource(R.drawable.style_points);
                         }
@@ -184,9 +200,8 @@ public class Level1 extends AppCompatActivity {
                         if(count > 0){
                             if(count == 1){
                                 count = 0;
-                            } else {
-                                count -= 2;
                             }
+                            count -=2;
                         }
                         for(int i = 0; i < 19; i++){
                             TextView tv = findViewById(progress[i]);
@@ -200,17 +215,17 @@ public class Level1 extends AppCompatActivity {
                     if(count == 20){
                         dialogEnd.show();
                     } else {
-                        numLeft = random.nextInt(10); // Random for numLeft
-                        imgLeft.setImageResource(array.images1[numLeft]);
+                        numLeft = random.nextInt(21); // Random for numLeft
+                        imgLeft.setImageResource(array.images3[numLeft]);
                         imgLeft.startAnimation(a);
-                        textLeft.setText(array.texts1[numLeft]);
+                        textLeft.setText(array.texts3[numLeft]);
 
-                        do{ numRight = random.nextInt(10);
+                        do{ numRight = random.nextInt(21);
                         } while(numLeft == numRight);
 
-                        imgRight.setImageResource(array.images1[numRight]);
+                        imgRight.setImageResource(array.images3[numRight]);
                         imgRight.startAnimation(a);
-                        textRight.setText(array.texts1[numRight]);
+                        textRight.setText(array.texts3[numRight]);
 
                         imgRight.setEnabled(true);
                     }
@@ -238,7 +253,7 @@ public class Level1 extends AppCompatActivity {
                         if(count < 20){
                             ++count;
                         }
-                        for(int i = 0; i < 19; i++){
+                        for(int i = 0; i < 20; i++){
                             TextView tv = findViewById(progress[i]);
                             tv.setBackgroundResource(R.drawable.style_points);
                         }
@@ -250,9 +265,8 @@ public class Level1 extends AppCompatActivity {
                         if(count > 0){
                             if(count == 1){
                                 count = 0;
-                            }else {
-                                count -= 2;
                             }
+                            count -=2;
                         }
                         for(int i = 0; i < 19; i++){
                             TextView tv = findViewById(progress[i]);
@@ -267,17 +281,17 @@ public class Level1 extends AppCompatActivity {
                     if(count == 20){
                         dialogEnd.show();
                     } else {
-                        numLeft = random.nextInt(10); // Random for numLeft
-                        imgLeft.setImageResource(array.images1[numLeft]);
+                        numLeft = random.nextInt(20); // Random for numLeft
+                        imgLeft.setImageResource(array.images3[numLeft]);
                         imgLeft.startAnimation(a);
-                        textLeft.setText(array.texts1[numLeft]);
+                        textLeft.setText(array.texts3[numLeft]);
 
-                        do{ numRight = random.nextInt(10);
+                        do{ numRight = random.nextInt(20);
                         } while(numLeft == numRight);
 
-                        imgRight.setImageResource(array.images1[numRight]);
+                        imgRight.setImageResource(array.images3[numRight]);
                         imgRight.startAnimation(a);
-                        textRight.setText(array.texts1[numRight]);
+                        textRight.setText(array.texts3[numRight]);
 
                         imgLeft.setEnabled(true);
                     }
@@ -299,7 +313,7 @@ public class Level1 extends AppCompatActivity {
     }
 
     public void onClickBack(View view) {
-        Intent intent = new Intent(Level1.this, GameLevels.class);
+        Intent intent = new Intent(Level4.this, GameLevels.class);
         startActivity(intent);
         finish();
     }

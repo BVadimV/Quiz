@@ -49,4 +49,10 @@ public class GameLevels extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void onClickFourthLevel(View view) {
+        Intent intent = new Intent(GameLevels.this, Level4.class);
+        startActivity(intent);
+        finish();
+    }
 }

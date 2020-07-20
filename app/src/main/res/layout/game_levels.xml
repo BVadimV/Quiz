@@ -114,6 +114,7 @@
                             android:textColor="@color/white"
                             android:textSize="24sp"
                             android:textStyle="bold"
+                            android:onClick="onClickFourthLevel"
                             />
                         <TextView
                             android:id="@+id/textView5"

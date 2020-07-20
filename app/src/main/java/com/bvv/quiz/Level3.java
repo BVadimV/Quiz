@@ -137,7 +137,7 @@ public class Level3 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    Intent intent = new Intent(Level3.this, Level3.class);
+                    Intent intent = new Intent(Level3.this, Level4.class);
                     startActivity(intent);
                     finish();
                 } catch(Exception e){}
