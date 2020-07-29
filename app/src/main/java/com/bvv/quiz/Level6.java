@@ -38,7 +38,7 @@ public class Level6 extends AppCompatActivity {
         setContentView(R.layout.universal);
 
         TextView textLevel = findViewById(R.id.text_levels);
-        textLevel.setText(R.string.level4);
+        textLevel.setText(R.string.level6);
 
         // Замена основного фона уровня
         ImageView background = (ImageView) findViewById(R.id.background);
@@ -67,7 +67,7 @@ public class Level6 extends AppCompatActivity {
 
         // устанавливаем картинку диалогового окна
         ImageView previewimgThree = dialog.findViewById(R.id.previewimg);
-        previewimgThree.setImageResource(R.drawable.previewimgfour);
+        previewimgThree.setImageResource(R.drawable.previewimgsix);
 
         // Устанавливаем фон диалогового окна
         LinearLayout dialogBackground = (LinearLayout) dialog.findViewById(R.id.dialogfon);

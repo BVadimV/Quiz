@@ -37,7 +37,7 @@ public class Level4 extends AppCompatActivity {
         setContentView(R.layout.universal);
 
         TextView textLevel = findViewById(R.id.text_levels);
-        textLevel.setText(R.string.level2);
+        textLevel.setText(R.string.level4);
 
         final ImageView imgLeft = (ImageView) findViewById(R.id.img_left);
         imgLeft.setClipToOutline(true);// Скругление картинки

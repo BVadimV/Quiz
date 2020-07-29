@@ -38,7 +38,7 @@ public class Level3 extends AppCompatActivity {
         setContentView(R.layout.universal);
 
         TextView textLevel = findViewById(R.id.text_levels);
-        textLevel.setText(R.string.level1);
+        textLevel.setText(R.string.level3);
 
 //        tvTimer = (TextView) findViewById(R.id.tv_timer);
 
