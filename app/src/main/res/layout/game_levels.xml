@@ -127,6 +127,7 @@
                             android:textColor="@color/white"
                             android:textSize="24sp"
                             android:textStyle="bold"
+                            android:onClick="onClickFifthLevel"
                             />
                     </LinearLayout>
 
@@ -149,6 +150,7 @@
                             android:textColor="@color/white"
                             android:textSize="24sp"
                             android:textStyle="bold"
+                            android:onClick="onClickSixthLevel"
                             />
                         <TextView
                             android:id="@+id/textView7"
@@ -161,6 +163,7 @@
                             android:textColor="@color/white"
                             android:textSize="24sp"
                             android:textStyle="bold"
+                            android:onClick="onClickSeventhLevel"
                             />
                         <TextView
                             android:id="@+id/textView8"

@@ -29,6 +29,7 @@ public class Level2 extends AppCompatActivity {
     Dialog dialog;
     Dialog dialogEnd;
     public int count = 0;
+//    TextView tvTimer;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -37,7 +38,9 @@ public class Level2 extends AppCompatActivity {
         setContentView(R.layout.universal);
 
         TextView textLevel = findViewById(R.id.text_levels);
-        textLevel.setText(R.string.level2);
+        textLevel.setText(R.string.level1);
+
+//        tvTimer = (TextView) findViewById(R.id.tv_timer);
 
         final ImageView imgLeft = (ImageView) findViewById(R.id.img_left);
         imgLeft.setClipToOutline(true);// Скругление картинки
@@ -53,19 +56,12 @@ public class Level2 extends AppCompatActivity {
         Window w = getWindow();
         w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
-        dialog = new Dialog(this); // create new dialog
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // title invisible
-        dialog.setContentView(R.layout.previewdialog); // path to dialog
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // устанавливаем прозрачность заднего фона
-        dialog.setCancelable(false); // запрещаем выход при нажатии кнопки назад
-
-        // устанавливаем картинку диалога
-        ImageView previewimgTwo = dialog.findViewById(R.id.previewimg);
-        previewimgTwo.setImageResource(R.drawable.previewimgtwo);
-
-        // устанавливаем текст диалога
-        TextView textDescription = dialog.findViewById(R.id.textdescription);
-        textDescription.setText(R.string.leveltwo);
+        //вызов диалогового окна в начале уровня.
+        dialog = new Dialog(this);// создание нового диалогового окна
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // скрываем заголовок
+        dialog.setContentView(R.layout.previewdialog); // путь к макету диалогового окна
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));// прозрачный фон диалогового окна
+        dialog.setCancelable(false); // нельзя закрыть кнопкой назад
 
         //Кнопка закрывающая диалоговое окно
         TextView btnClose = dialog.findViewById(R.id.btn_close);
@@ -86,10 +82,12 @@ public class Level2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss(); //Закрываем диалоговое окно
+                // старт отсчета 30 сек.
             }
         });
 
         dialog.show();
+        //---------------------------------------------------
 
         //вызов диалогового окна в конце уровня.
         dialogEnd = new Dialog(this);
@@ -98,10 +96,6 @@ public class Level2 extends AppCompatActivity {
         dialogEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // прозрачный фон диалогового окна
         dialogEnd.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT); // задает растягивание для диалогового окна
         dialogEnd.setCancelable(false);
-
-        // изменение текста в диалоговом окне.
-        TextView textDescriptionEnd = (TextView) dialogEnd.findViewById(R.id.textdescriptionend);
-        textDescriptionEnd.setText(R.string.leveltwoEnd);
 
         //Кнопка закрывающая диалоговое окно
         TextView btnClose2 = dialogEnd.findViewById(R.id.btn_close);
@@ -132,11 +126,11 @@ public class Level2 extends AppCompatActivity {
 
         //---------------------------------------------------
 
-
+        // массив адресов прогресса
         final int[] progress = {
                 R.id.point1, R.id.point2, R.id.point3, R.id.point4,
-                R.id.point5, R.id.point6, R.id.point7,
-                R.id.point8, R.id.point9, R.id.point10, R.id.point11,
+                R.id.point5, R.id.point6, R.id.point7, R.id.point8,
+                R.id.point9, R.id.point10, R.id.point11,
                 R.id.point12, R.id.point13, R.id.point14, R.id.point15,
                 R.id.point16, R.id.point17, R.id.point18, R.id.point19,
                 R.id.point20
@@ -148,7 +142,8 @@ public class Level2 extends AppCompatActivity {
         imgLeft.setImageResource(array.images2[numLeft]);
         textLeft.setText(array.texts2[numLeft]);
 
-        do{numRight = random.nextInt(10);
+        do{
+            numRight = random.nextInt(10);
         } while(numLeft == numRight);
 
         imgRight.setImageResource(array.images2[numRight]);
@@ -160,20 +155,20 @@ public class Level2 extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 //Условие касания
                 if(event.getAction()==MotionEvent.ACTION_DOWN){
-                    // Касание
+                    // Касание пальцем
                     imgRight.setEnabled(false);// Блокируем правую картинку
-                    if(numLeft>numRight){
+                    if(numLeft<numRight){
                         imgLeft.setImageResource(R.drawable.img_true);
                     } else{
                         imgLeft.setImageResource(R.drawable.img_false);
                     }
                 } if(event.getAction()==MotionEvent.ACTION_UP){
                     // Отжатие пальца
-                    if(numLeft>numRight){
+                    if(numLeft<numRight){
                         if(count < 20){
                             ++count;
                         }
-                        for(int i = 0; i < 20; i++){
+                        for(int i = 0; i < 19; i++){
                             TextView tv = findViewById(progress[i]);
                             tv.setBackgroundResource(R.drawable.style_points);
                         }
@@ -185,8 +180,9 @@ public class Level2 extends AppCompatActivity {
                         if(count > 0){
                             if(count == 1){
                                 count = 0;
+                            } else {
+                                count -= 2;
                             }
-                            count -=2;
                         }
                         for(int i = 0; i < 19; i++){
                             TextView tv = findViewById(progress[i]);
@@ -227,18 +223,18 @@ public class Level2 extends AppCompatActivity {
                 if(event.getAction()==MotionEvent.ACTION_DOWN){
                     // Касание
                     imgLeft.setEnabled(false);// Блокируем правую картинку
-                    if(numLeft<numRight){
+                    if(numLeft>numRight){
                         imgRight.setImageResource(R.drawable.img_true);
                     } else{
                         imgRight.setImageResource(R.drawable.img_false);
                     }
                 } if(event.getAction()==MotionEvent.ACTION_UP){
                     // Отжатие пальца
-                    if(numLeft<numRight){
+                    if(numLeft>numRight){
                         if(count < 20){
                             ++count;
                         }
-                        for(int i = 0; i < 20; i++){
+                        for(int i = 0; i < 19; i++){
                             TextView tv = findViewById(progress[i]);
                             tv.setBackgroundResource(R.drawable.style_points);
                         }
@@ -250,8 +246,9 @@ public class Level2 extends AppCompatActivity {
                         if(count > 0){
                             if(count == 1){
                                 count = 0;
+                            }else {
+                                count -= 2;
                             }
-                            count -=2;
                         }
                         for(int i = 0; i < 19; i++){
                             TextView tv = findViewById(progress[i]);

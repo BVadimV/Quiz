@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textdescription"
-            android:text="@string/levelone"
+            android:text="@string/levelOne"
             android:textColor="@color/black95"
             android:textSize="24sp"
             android:layout_marginTop="10dp"

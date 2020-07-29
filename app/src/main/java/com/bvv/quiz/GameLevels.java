@@ -55,4 +55,16 @@ public class GameLevels extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void onClickFifthLevel(View view) {
+        Intent intent = new Intent(GameLevels.this, Level5.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void onClickSixthLevel(View view) {
+        Intent intent = new Intent(GameLevels.this, Level6.class);
+        startActivity(intent);
+        finish();
+    }
 }

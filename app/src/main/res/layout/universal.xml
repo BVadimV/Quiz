@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/level1"
+        android:src="@drawable/level1_2_3_4"
         />
 
     <LinearLayout
@@ -28,6 +28,7 @@
             android:orientation="vertical"
             android:padding="10dp">
 
+            <!--Место для отсчета времени для прохождения игры.-->
             <!--<LinearLayout
                 android:id="@+id/line_fo_timer"
                 android:layout_width="match_parent"
